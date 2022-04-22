@@ -3,6 +3,7 @@ import os
 import boto3
 import csv
 import numpy as np
+import time
 
 """A Complete list of features we are interested in.
 
@@ -236,11 +237,12 @@ if __name__ == "__main__":
             works.append(letters[i*letter_chunk_size:])
         else:
             works.append(letters[i*letter_chunk_size:(i+1)*letter_chunk_size])
-
+    
     letters = works[args.worker_id]
     print(letters)
     processed = []
     acc = 0
+    curr_time = time.time()
     for letter in letters:
         for root, dirs, files in os.walk('songs/data/'+letter):
             for f in files:
@@ -266,6 +268,8 @@ if __name__ == "__main__":
             chunk_id = f'{letter}_{n}'
             save_rows(chunk_id, processed, save_to_local)
             processed = []
+    print("Worker Id: {}\n".format(args.worker_id))
+    print("Time used in %fs"%(time.time()-curr_time))
 
 
 
