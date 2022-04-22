@@ -1,6 +1,5 @@
 import h5py
 import os
-import boto3
 import csv
 import numpy as np
 import time
