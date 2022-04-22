@@ -1,6 +1,7 @@
 import os
 import psutil
 import time
+import json
 
 
 def collect_metrics(filename):
@@ -25,12 +26,14 @@ def collect_metrics(filename):
     result.append('{}'.format(int(get_swap_total() / 1024 / 1024)))
     # Output current Swap usage as a percentage.
     result.append('{}'.format(get_swap_usage_pct()))
+    # Output Disk Io Counters
+    result.append('{}'.format(get_disk_io_counter()))
     f.write("|".join(result)+"\n")
     f.close()
 
 def main():
     f = open("system_metrics.csv", "a")
-    f.write("CPU usage|CPU usage percpu|CPU frequency|CPU temperature|RAM usage|RAM total|RAM usage percent|Swap usage|Swap total|Swap percent\n")
+    f.write("CPU usage|CPU usage percpu|CPU frequency|CPU temperature|RAM usage|RAM total|RAM usage percent|Swap usage|Swap total|Swap percent|DiskIO\n")
     f.close()
     while True:
         collect_metrics("system_metrics.csv")
@@ -137,5 +140,6 @@ def get_swap_usage_pct():
     """
     return psutil.swap_memory().percent
 
-print("je;l")
+def get_disk_io_counter():
+    return json.dumps(psutil.disk_io_counters(perdisk=True))
 main()
