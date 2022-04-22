@@ -181,25 +181,11 @@ def save_rows(chunk_id, rows, save_local=False):
         print(f'csv saved to: {path}')
         return
 
-    """
-    You will need your S3 bucket name.
     
-    You may find the "Bucket Instance Version" section of the 
-    following tutorial helpful:
-    https://realpython.com/python-boto3-aws-s3/
-    """ 
 
-    ### YOUR CODE HERE
+ 
 
-    # ----- BEGIN SOLUTION -----
-    bucket=''
-    # ------ END SOLUTION ------
-    s3 = boto3.resource('s3')
-    s3.Bucket(bucket).upload_file(path,path)
-    print('csv saved to s3: ', path)
-
-    # Remove the tempory csv file after we upload it to S3
-    os.remove(path)
+    
 
 """Convert all files
 
@@ -230,7 +216,7 @@ a chunk to disk. Do not change `CHUNK_SIZE` for grading purposes.
 if __name__ == "__main__":
     CHUNK_SIZE = 10000
     progress_ckpt_size = 100
-    save_to_local = False
+    save_to_local = True
 
     import argparse
 
