@@ -268,8 +268,9 @@ if __name__ == "__main__":
             chunk_id = f'{letter}_{n}'
             save_rows(chunk_id, processed, save_to_local)
             processed = []
-    print("Worker Id: {}\n".format(args.worker_id))
-    print("Time used in %fs"%(time.time()-curr_time))
+    f = open("timeRecord.txt", 'a')
+    f.write("Worker Id: {}\n".format(args.worker_id))
+    f.write("Time used in %fs\n"%(time.time()-curr_time))
 
 
 
